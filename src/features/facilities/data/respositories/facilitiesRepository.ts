@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { HealthFacility, HealthFacilityLevel } from "../models";
 import { FacilitySchema } from "../../presentation";
+import { isEmpty } from "lodash";
 
 const getFacilities = async () => {
   return await HealthFacility.find({ published: true });
@@ -8,14 +9,25 @@ const getFacilities = async () => {
 
 const registerFacility = async (data: z.infer<typeof FacilitySchema>) => {
   /**
-   * Ensure facility is valid
+   * Ensure no other facility with mfl code
+   * Ensure facilitylevel is valid
    * create facility
    * Return fcility
    */
+  const errors: any = {};
+
+  if (await HealthFacility.findOne({ mflCode: data.mflCode }))
+    errors["mflCode"] = {
+      _errors: ["Anoter facility with similar mfl code already exists"],
+    };
   if (!(await HealthFacilityLevel.findById(data.level))) {
+    errors["level"] = { _errors: ["Invalid facility level"] };
+  }
+
+  if (!isEmpty(errors)) {
     throw {
       status: 400,
-      errors: { level: { _errors: ["Invalid facility level"] } },
+      errors,
     };
   }
   const facility = new HealthFacility(data);

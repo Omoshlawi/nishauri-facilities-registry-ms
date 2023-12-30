@@ -1,26 +1,27 @@
 import { z } from "zod";
 import { HealthFacility, HealthFacilityLevel } from "../models";
-import { FacilitySchema } from "../../presentation";
+import { FacilityLevelSchema } from "../../presentation";
 
 const getFacilityLevels = async () => {
   return await HealthFacility.find({ published: true });
 };
 
-const registerFacilityLevel = async (data: z.infer<typeof FacilitySchema>) => {
+const registerFacilityLevel = async (
+  data: z.infer<typeof FacilityLevelSchema>
+) => {
   /**
-   * Ensure facility is valid
-   * create facility
+   * Ensure no other level with same level
+   * Create facility level
    * Return fcility
    */
-  if (!(await HealthFacilityLevel.findById(data.level))) {
+  if (await HealthFacilityLevel.findOne({ level: data.level }))
     throw {
       status: 400,
-      errors: { level: { _errors: ["Invalid facility level"] } },
+      errors: { level: { _errors: ["Level already exists"] } },
     };
-  }
-  const facility = new HealthFacility(data);
-  await facility.save();
-  return facility;
+  const facilityLevel = new HealthFacilityLevel(data);
+  await facilityLevel.save();
+  return facilityLevel;
 };
 
 export default {

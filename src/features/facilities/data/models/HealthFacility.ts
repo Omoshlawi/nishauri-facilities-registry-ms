@@ -7,7 +7,7 @@ import EMRSourceInstanceConfig from "./EMRSourceInstanceConfig";
 const HealthFacility = model(
   "HealthFacility",
   new Schema({
-    mfl_code: {
+    mflCode: {
       unique: true,
       required: true,
       type: String,
