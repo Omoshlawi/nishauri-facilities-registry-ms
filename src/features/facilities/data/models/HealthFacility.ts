@@ -49,6 +49,10 @@ const HealthFacility = model(
       type: [String],
       default: [],
     },
+    published: {
+      type: Boolean,
+      default: false,
+    },
   })
 );
 
