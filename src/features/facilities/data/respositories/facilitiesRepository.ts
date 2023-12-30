@@ -2,9 +2,16 @@ import { z } from "zod";
 import { HealthFacility, HealthFacilityLevel } from "../models";
 import { FacilitySchema } from "../../presentation";
 import { isEmpty } from "lodash";
+import { dbHelpers } from "../../../../utils";
 
-const getFacilities = async () => {
-  return await HealthFacility.find({ published: true });
+const getFacilities = async (search?: any) => {
+  return await HealthFacility.aggregate([
+    dbHelpers.simpleSearch(
+      search,
+      ["mflCode", "name", "contact.phone"],
+      ["mflCode", "contact.phone"]
+    ),
+  ]);
 };
 
 const registerFacility = async (data: z.infer<typeof FacilitySchema>) => {

@@ -8,7 +8,6 @@ const HealthFacility = model(
   "HealthFacility",
   new Schema({
     mflCode: {
-      unique: true,
       required: true,
       type: String,
     },

@@ -10,7 +10,9 @@ export const getFacilities = async (
   next: NextFunction
 ) => {
   try {
-    const facilities = await facilitiesRepository.getFacilities();
+    const facilities = await facilitiesRepository.getFacilities(
+      req.query?.search
+    );
     return res.json({ results: facilities });
   } catch (error) {
     next(error);
@@ -31,7 +33,8 @@ export const createFacility = async (
     };
 
     const validation = await FacilitySchema.safeParseAsync(body);
-    if (!validation.success) return res.json(validation.error.format());
+    if (!validation.success)
+      return res.status(400).json(validation.error.format());
     // throw new APIException(400, validation.error.format());
     return res.json(
       await facilitiesRepository.registerFacility(validation.data)

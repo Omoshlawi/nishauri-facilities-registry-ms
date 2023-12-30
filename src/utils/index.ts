@@ -27,3 +27,5 @@ export {
   registry,
   sendSms,
 } from "./helpers";
+
+export { default as dbHelpers } from "./dbHelpers";

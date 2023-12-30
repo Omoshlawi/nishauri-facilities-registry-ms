@@ -15,6 +15,10 @@ const HealthFacilityLevel = model(
       type: String,
       default: null,
     },
+    published: {
+      type: Boolean,
+      default: true,
+    },
   })
 );
 

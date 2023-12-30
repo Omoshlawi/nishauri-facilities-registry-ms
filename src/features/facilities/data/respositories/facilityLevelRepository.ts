@@ -3,7 +3,7 @@ import { HealthFacility, HealthFacilityLevel } from "../models";
 import { FacilityLevelSchema } from "../../presentation";
 
 const getFacilityLevels = async () => {
-  return await HealthFacility.find({ published: true });
+  return await HealthFacilityLevel.find();
 };
 
 const registerFacilityLevel = async (
