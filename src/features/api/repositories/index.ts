@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { HealthFacility } from "../../facilities/data/models";
 import axios, { AxiosError } from "axios";
-import { configuration } from "../../../utils";
+import { configuration, securityHelpers } from "../../../utils";
 
 const getFacilityByMFLCode = async (mflCode: string) => {
   const facility = await HealthFacility.findOne({ mflCode });
@@ -30,7 +30,9 @@ const proxy = async (req: Request) => {
     );
     url.href;
     const Authorization = `Basic ${Buffer.from(
-      `${emrInstance.accessUsername}:${emrInstance.accessPassword}`
+      `${securityHelpers.decrypt(
+        emrInstance.accessUsername
+      )}:${securityHelpers.decrypt(emrInstance.accessPassword)}`
     ).toString("base64")}`;
     const response = await axios({
       url: url.href,

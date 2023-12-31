@@ -3,7 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import { configureExpressApp, dbConnection } from "./server";
 import { messageBroker } from "./amqp";
-import { configuration } from "./utils";
+import { configuration, securityHelpers } from "./utils";
 import { registry } from "./utils/helpers";
 import { toNumber } from "lodash";
 
@@ -19,7 +19,7 @@ const startServer = async () => {
   await configureExpressApp(app, channel);
   const port = configuration.port ?? 0;
   httpServer.listen(port, () => {
-    const address:any = httpServer.address();
+    const address: any = httpServer.address();
 
     const { register, unregister } = registry(
       configuration.registry.url,

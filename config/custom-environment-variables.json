@@ -8,5 +8,6 @@
     "mapquest_key":"MAPQUEST_CONSUMER_KEY",
     "mapquest_secrete":"MAPQUEST_CONSUMER_SECRETE",
     "port": "PORT",
-    "message_broker_url": "MESSAGE_BROKER_URL"
+    "message_broker_url": "MESSAGE_BROKER_URL",
+    "enryption_key": "ENCRYPTION_KEY"
 }

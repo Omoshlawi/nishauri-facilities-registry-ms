@@ -2,7 +2,7 @@ import { z } from "zod";
 import { HealthFacility, HealthFacilityLevel } from "../models";
 import { FacilitySchema } from "../../presentation";
 import { isEmpty } from "lodash";
-import { dbHelpers } from "../../../../utils";
+import { dbHelpers, securityHelpers } from "../../../../utils";
 
 const getFacilities = async (search?: any) => {
   return await HealthFacility.aggregate([
@@ -37,7 +37,18 @@ const registerFacility = async (data: z.infer<typeof FacilitySchema>) => {
       errors,
     };
   }
-  const facility = new HealthFacility(data);
+  const facility = new HealthFacility({
+    ...data,
+    emrSourceInsanceConfig: {
+      ...data.emrSourceInsanceConfig,
+      accessUsername: securityHelpers.encrypt(
+        data.emrSourceInsanceConfig.accessUsername
+      ),
+      accessPassword: securityHelpers.encrypt(
+        data.emrSourceInsanceConfig.accessPassword
+      ),
+    },
+  });
   await facility.save();
   return facility;
 };
