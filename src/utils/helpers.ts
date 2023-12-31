@@ -6,12 +6,6 @@ import config from "config";
 import axios from "axios";
 import path from "path/posix";
 import { Types } from "mongoose";
-export const formartError = (errors: any) => {
-  return {
-    status: 0,
-    errors: {},
-  };
-};
 
 export function generateOTP(length = 5) {
   var string = "0123456789";

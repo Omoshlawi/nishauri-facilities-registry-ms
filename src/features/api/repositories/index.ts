@@ -8,9 +8,7 @@ const getFacilityByMFLCode = async (mflCode: string) => {
   if (!facility)
     throw {
       status: 403,
-      errors: {
-        detail: "Invalid facility or Facility not registered with nishauri",
-      },
+      errors: {detail: "Invalid facility or Facility not registered with nishauri"},
     };
   return facility;
 };
