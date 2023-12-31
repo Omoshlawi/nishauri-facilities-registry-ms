@@ -6,6 +6,9 @@ import { messageBroker } from "./amqp";
 import { configuration, securityHelpers } from "./utils";
 import { registry } from "./utils/helpers";
 import { toNumber } from "lodash";
+const e = securityHelpers.encryptCredentials("admin", "Admin123");
+console.log(e);
+console.log(securityHelpers.dencryptCredentials(e));
 
 const startServer = async () => {
   const app = express();

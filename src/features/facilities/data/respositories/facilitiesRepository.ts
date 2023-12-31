@@ -41,10 +41,8 @@ const registerFacility = async (data: z.infer<typeof FacilitySchema>) => {
     ...data,
     emrSourceInsanceConfig: {
       ...data.emrSourceInsanceConfig,
-      accessUsername: securityHelpers.encrypt(
-        data.emrSourceInsanceConfig.accessUsername
-      ),
-      accessPassword: securityHelpers.encrypt(
+      accessCredentials: securityHelpers.encryptCredentials(
+        data.emrSourceInsanceConfig.accessUsername,
         data.emrSourceInsanceConfig.accessPassword
       ),
     },

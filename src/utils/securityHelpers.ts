@@ -30,7 +30,17 @@ function decrypt(string: string) {
   return decrypted.toString();
 }
 
+const encryptCredentials = (username: string, password: string) => {
+  return encrypt(`${encrypt(username)}*${encrypt(password)}`);
+};
+
+const dencryptCredentials = (creads: string) => {
+  return decrypt(creads).split("*").map(decrypt);
+};
+
 export default {
   encrypt,
   decrypt,
+  encryptCredentials,
+  dencryptCredentials,
 };

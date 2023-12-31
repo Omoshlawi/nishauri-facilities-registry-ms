@@ -28,12 +28,12 @@ const proxy = async (req: Request) => {
     const url = new URL(
       `https://${emrInstance.host}:${emrInstance.port}/${configuration.emrRestPath}/${resource}`
     );
-    url.href;
-    const Authorization = `Basic ${Buffer.from(
-      `${securityHelpers.decrypt(
-        emrInstance.accessUsername
-      )}:${securityHelpers.decrypt(emrInstance.accessPassword)}`
-    ).toString("base64")}`;
+    const [_u, _p] = securityHelpers.dencryptCredentials(
+      emrInstance.accessCredentials
+    );
+    const Authorization = `Basic ${Buffer.from(`${_u}:${_p}`).toString(
+      "base64"
+    )}`;
     const response = await axios({
       url: url.href,
       method: req.method,

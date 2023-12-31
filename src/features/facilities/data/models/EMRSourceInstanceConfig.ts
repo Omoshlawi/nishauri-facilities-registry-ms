@@ -19,16 +19,11 @@ const EMRSourceInstanceConfig = model(
       type: Number,
       required: true,
     },
-    accessUsername: {
-      type: String,
-      required: true,
-    },
-    accessPassword: {
+    accessCredentials: {
       type: String,
       required: true,
     },
   })
 );
 
-
-export default EMRSourceInstanceConfig
+export default EMRSourceInstanceConfig;
