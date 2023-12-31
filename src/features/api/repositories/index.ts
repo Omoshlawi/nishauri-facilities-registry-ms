@@ -53,14 +53,14 @@ const proxy = async (req: Request) => {
         };
       throw {
         status: axiosError.status,
-        errors: axiosError.message,
+        errors: { detail: axiosError.message },
       };
     } else if (error.status) {
       throw error;
     }
     throw {
       status: 500,
-      errors: error.message,
+      errors: { detail: error.message },
     };
   }
 };

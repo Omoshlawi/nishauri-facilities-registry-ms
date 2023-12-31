@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import repositories from "../repositories";
-import axios from "axios";
-import { configuration } from "../../../utils";
 
 export const proxyFacilityEMRInstance = async (
   req: Request,
