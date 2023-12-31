@@ -8,6 +8,7 @@ import proxy from "express-http-proxy";
 import { handleErrors } from "../middlewares";
 import { Channel } from "amqplib";
 import { default as facilityRouter } from "../features/facilities/routes";
+import { default as apiRouter } from "../features/api/routes";
 
 export const dbConnection = async () => {
   try {
@@ -41,6 +42,7 @@ export const configureExpressApp = async (
   //------------------- routes --------------------------------
   app.use("/auth", authRoutes);
   app.use("/facilities", facilityRouter);
+  app.use("/api", apiRouter);
   //-------------------end routes-----------------------------
 
   //---------------- error handler -----------------------

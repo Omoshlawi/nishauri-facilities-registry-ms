@@ -14,6 +14,7 @@ export const configuration = {
     url: config.get("registry.url") as string,
     version: config.get("registry.version") as string,
   },
+  emrRestPath: config.get("emr_rest_path") as string,
 };
 export {
   expressMulterFileToFile,

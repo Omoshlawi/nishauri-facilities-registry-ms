@@ -40,7 +40,8 @@
     "registry": {
         "url":"http://localhost:9000",
         "version": "*"
-    }
+    },
+    "emr_rest_path":"openmrs/ws/rest/v1"
 
 
 }
